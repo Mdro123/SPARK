@@ -7,7 +7,6 @@ rdd_multiplicado = rdd.map(lambda x: x * 2)
 print(rdd_multiplicado.collect())
 
 filter:
-
 from pyspark import SparkContext
 sc = SparkContext("local", "Ejemplo de filter")
 rdd = sc.parallelize([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
