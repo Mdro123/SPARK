@@ -42,3 +42,63 @@ print(rdd_interseccion.collect())
 
 
 ACCIONES: 
+#1 ACCION reduce
+rdd = sc.parallelize(range(1, 90), 3)
+resultado = rdd.reduce(lambda x, y: x + y)
+print(resultado)
+
+#2 ACCION collect
+rdd_c = sc.parallelize(["Gnu", "Cat", "Rat", "Dog", "Gnu", "Rat"], 2)
+resultado_c = rdd_c.collect()
+print(resultado_c)
+
+#3 ACCION count
+rdd_a = sc.parallelize(range(1, 5))
+resultado_a = rdd_a.count()
+print(resultado_a)
+
+#4 ACCION first
+rdd_c = sc.parallelize(["Gnu", "Cat", "Rat", "Dog"], 2)
+resultado_c_first = rdd_c.first()
+print(resultado_c_first)
+
+#5 ACCION take
+rdd_b = sc.parallelize(["dog", "cat", "ape", "salmon", "gnu"], 2)
+resultado_b_take = rdd_b.take(2)
+print(resultado_b_take)
+
+#6 takeSample
+rdd_x = sc.parallelize(range(1, 201), 3)
+resultado_x_sample = rdd_x.takeSample(True, 20, seed=1)
+print(resultado_x_sample)
+
+#7 takeOrdered
+rdd_b = sc.parallelize(["dog", "cat", "ape", "salmon", "gnu"], 2)
+resultado_b_ordered = rdd_b.takeOrdered(2)
+print(resultado_b_ordered)
+
+#8 saveAsTextFile
+rdd_a = sc.parallelize(range(1, 10001), 3)
+output_path_text = '/content/ejemplo/datos_texto'
+rdd_a.saveAsTextFile(output_path_text)
+
+#9 saveAsSequenceFile
+rdd_v = sc.parallelize([("owl", 3), ("gnu", 4), ("dog", 1), ("cat", 2), ("ant", 5)], 2)
+output_path_seq = '/content/ejemplo/seq_datos'
+rdd_v.saveAsSequenceFile(output_path_seq)
+
+#10 saveAsObjectFile
+rdd_x = sc.parallelize([("owl", 3), ("gnu", 4), ("dog", 1), ("cat", 2), ("ant", 5)], 2)
+output_path_obj = "/content/ejemplo/objFile"
+rdd_x.saveAsObjectFile(output_path_obj)
+
+#11 countByKey
+rdd_c = sc.parallelize([(3, "Gnu"), (3, "Yak"), (5, "Mouse"), (3, "Dog")], 2)
+resultado_c_countByKey = rdd_c.countByKey()
+print(dict(resultado_c_countByKey))
+
+#12 ACCION foreach
+rdd_c = sc.parallelize(["cat", "dog", "tiger", "lion", "gnu", "crocodile", "ant", "whale", "dolphin", "spider"], 3)
+resultado_foreach = rdd_c.map(lambda x: f"{x}s are beautiful").collect()
+for line in resultado_foreach:
+    print(line)
