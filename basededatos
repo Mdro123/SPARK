@@ -40,6 +40,112 @@ rdd2 = sc.parallelize([3, 4, 5, 6, 7])
 rdd_interseccion = rdd1.intersection(rdd2)
 print(rdd_interseccion.collect())
 
+distinc:
+
+from pyspark import SparkContext
+sc = SparkContext("local", "Ejemplo de distinct")
+rdd = sc.parallelize([1, 2, 2, 3, 4, 4, 5, 5, 6, 7, 8, 8, 9])
+rdd_distinct = rdd.distinct()
+print(rdd_distinct.collect())
+
+groupByKey:
+
+from pyspark import SparkContext
+sc = SparkContext("local", "Ejemplo de groupByKey")
+rdd = sc.parallelize([
+    ("manzana", 3),
+    ("manzana", 5),
+    ("banana", 4),
+    ("manzana", 2),
+    ("banana", 1),
+    ("cereza", 10)
+])
+rdd_grouped = rdd.groupByKey()
+resultado = rdd_grouped.mapValues(list).collect()
+for producto, cantidades in resultado:
+    print(f"{producto}: {cantidades}")
+
+reduceByKey:
+
+from pyspark import SparkContext
+sc = SparkContext("local", "Ejemplo de reduceByKey")
+rdd = sc.parallelize([
+    ("manzana", 3),
+    ("manzana", 5),
+    ("banana", 4),
+    ("manzana", 2),
+    ("banana", 1),
+    ("cereza", 10)
+])
+rdd_sumado = rdd.reduceByKey(lambda x, y: x + y)
+resultado = rdd_sumado.collect()
+for producto, total in resultado:
+    print(f"{producto}: {total}")
+
+sortByKey:
+
+from pyspark import SparkContext
+sc = SparkContext("local", "Ejemplo de sortByKey")
+rdd = sc.parallelize([
+    (3, "manzana"),
+    (1, "banana"),
+    (4, "cereza"),
+    (2, "durazno")
+])
+rdd_ordenado = rdd.sortByKey()
+resultado = rdd_ordenado.collect()
+for clave, valor in resultado:
+    print(f"{clave}: {valor}")
+
+join:
+
+from pyspark import SparkContext
+sc = SparkContext("local", "Ejemplo de join")
+rdd_productos = sc.parallelize([
+    (1, "manzana"),
+    (2, "banana"),
+    (3, "cereza")
+])
+rdd_precios = sc.parallelize([
+    (1, 0.5),
+    (2, 0.3),
+    (3, 0.7),
+    (4, 1.0) 
+])
+rdd_join = rdd_productos.join(rdd_precios)
+resultado = rdd_join.collect()
+for clave, (producto, precio) in resultado:
+    print(f"ID {clave}: {producto} - ${precio}")
+
+cogroup:
+
+from pyspark import SparkContext
+sc = SparkContext("local", "Ejemplo de cogroup")
+rdd_productos = sc.parallelize([
+    (1, "manzana"),
+    (2, "banana"),
+    (3, "cereza")
+])
+rdd_precios = sc.parallelize([
+    (1, 0.5),
+    (2, 0.3),
+    (3, 0.7),
+    (1, 0.6) 
+])
+rdd_cogroup = rdd_productos.cogroup(rdd_precios)
+resultado = rdd_cogroup.mapValues(lambda x: (list(x[0]), list(x[1]))).collect()
+for clave, (productos, precios) in resultado:
+    print(f"ID {clave}: productos={productos}, precios={precios}")
+
+coalesce:
+
+from pyspark import SparkContext
+sc = SparkContext("local", "Ejemplo de coalesce")
+rdd = sc.parallelize([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], numSlices=6)
+print(f"Número de particiones antes de coalesce: {rdd.getNumPartitions()}")
+rdd_reducido = rdd.coalesce(2)
+print(f"Número de particiones después de coalesce: {rdd_reducido.getNumPartitions()}")
+print(rdd_reducido.collect())
 
 ACCIONES: 
 #1 ACCION reduce
