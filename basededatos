@@ -198,9 +198,9 @@ output_path_obj = "/content/ejemplo/objFile"
 rdd_x.saveAsObjectFile(output_path_obj)
 
 #11 countByKey
-rdd_c = sc.parallelize([(3, "Gnu"), (3, "Yak"), (5, "Mouse"), (3, "Dog")], 2)
-resultado_c_countByKey = rdd_c.countByKey()
-print(dict(resultado_c_countByKey))
+rdd_values_key = sc.parallelize([("apple", 1), ("banana", 1), ("apple", 1), ("orange", 1), ("banana", 1), ("apple", 1)], 2)
+resultado_countByKey = rdd_values_key.countByKey()
+print(dict(resultado_countByKey))
 
 #12 ACCION foreach
 rdd_c = sc.parallelize(["cat", "dog", "tiger", "lion", "gnu", "crocodile", "ant", "whale", "dolphin", "spider"], 3)
