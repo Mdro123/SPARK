@@ -14,7 +14,6 @@ rdd_pares = rdd.filter(lambda x: x % 2 == 0)
 print(rdd_pares.collect())
 
 flatMap:
-
 from pyspark import SparkContext
 sc = SparkContext("local", "Ejemplo de flatMap")
 rdd = sc.parallelize(["Hola mundo", "Aprendiendo Spark", "flatMap es útil"])
@@ -22,7 +21,6 @@ rdd_palabras = rdd.flatMap(lambda frase: frase.split(" "))
 print(rdd_palabras.collect())
 
 unión:
-
 from pyspark import SparkContext
 sc = SparkContext("local", "Ejemplo de union")
 rdd_pares = sc.parallelize([2, 4, 6, 8])
@@ -40,7 +38,6 @@ rdd_interseccion = rdd1.intersection(rdd2)
 print(rdd_interseccion.collect())
 
 distinc:
-
 from pyspark import SparkContext
 sc = SparkContext("local", "Ejemplo de distinct")
 rdd = sc.parallelize([1, 2, 2, 3, 4, 4, 5, 5, 6, 7, 8, 8, 9])
@@ -48,7 +45,6 @@ rdd_distinct = rdd.distinct()
 print(rdd_distinct.collect())
 
 groupByKey:
-
 from pyspark import SparkContext
 sc = SparkContext("local", "Ejemplo de groupByKey")
 rdd = sc.parallelize([
@@ -65,7 +61,6 @@ for producto, cantidades in resultado:
     print(f"{producto}: {cantidades}")
 
 reduceByKey:
-
 from pyspark import SparkContext
 sc = SparkContext("local", "Ejemplo de reduceByKey")
 rdd = sc.parallelize([
@@ -82,7 +77,6 @@ for producto, total in resultado:
     print(f"{producto}: {total}")
 
 sortByKey:
-
 from pyspark import SparkContext
 sc = SparkContext("local", "Ejemplo de sortByKey")
 rdd = sc.parallelize([
@@ -97,7 +91,6 @@ for clave, valor in resultado:
     print(f"{clave}: {valor}")
 
 join:
-
 from pyspark import SparkContext
 sc = SparkContext("local", "Ejemplo de join")
 rdd_productos = sc.parallelize([
@@ -117,7 +110,6 @@ for clave, (producto, precio) in resultado:
     print(f"ID {clave}: {producto} - ${precio}")
 
 cogroup:
-
 from pyspark import SparkContext
 sc = SparkContext("local", "Ejemplo de cogroup")
 rdd_productos = sc.parallelize([
@@ -137,7 +129,6 @@ for clave, (productos, precios) in resultado:
     print(f"ID {clave}: productos={productos}, precios={precios}")
 
 coalesce:
-
 from pyspark import SparkContext
 sc = SparkContext("local", "Ejemplo de coalesce")
 rdd = sc.parallelize([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], numSlices=6)
