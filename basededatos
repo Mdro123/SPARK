@@ -139,17 +139,18 @@ print(rdd_reducido.collect())
 
 ACCIONES: 
 #1 ACCION reduce
-rdd = sc.parallelize(range(1, 90), 3)
+rdd = sc.parallelize(range(1, 20), 3)
 resultado = rdd.reduce(lambda x, y: x + y)
 print(resultado)
 
 #2 ACCION collect
-rdd_c = sc.parallelize(["Gnu", "Cat", "Rat", "Dog", "Gnu", "Rat"], 2)
+rdd_c = sc.parallelize(["Paris", "London", "New York", "Tokyo", "Paris", "Berlin"], 2)
 resultado_c = rdd_c.collect()
 print(resultado_c)
 
+
 #3 ACCION count
-rdd_a = sc.parallelize(range(1, 5))
+rdd_a = sc.parallelize(range(1, 10))
 resultado_a = rdd_a.count()
 print(resultado_a)
 
